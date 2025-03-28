@@ -58,7 +58,8 @@ Token Lexer::nextToken()
 Token Lexer::lexSkill()
 {
     string skill;
-    skill += this->ch; // Directly append the character
+    skill += this->ch;
+    bool sawShape = false;
     char prev = this->ch;
     while (true)
     {
@@ -81,6 +82,12 @@ Token Lexer::lexSkill()
         this->read();
         if (TokenType::isShape(this->ch))
         {
+            if (sawShape)
+            {
+                skill = TokenType::ILLEGAL;
+                break;
+            }
+            sawShape = true;
             skill += this->ch;
             if (prev == *TokenType::DIRECTION_INDICATOR)
             {
@@ -111,4 +118,15 @@ void Lexer::skipWhitespace()
     {
         this->read();
     }
+}
+
+vector<Token> Lexer::getTokens()
+{
+    vector<Token> tokens;
+    while (this->ch != '\0')
+    {
+        tokens.push_back(this->nextToken());
+    }
+
+    return tokens;
 }

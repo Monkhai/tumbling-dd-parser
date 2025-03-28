@@ -3,25 +3,27 @@
 #include "parser/parser.hpp"
 
 // Simple test helper function
-void test(const char *name, bool condition)
+void testParse()
 {
-    if (condition)
+    std::cout << "\n=== Starting testParse() ===\n";
+    bool allPassed = true;
+    vector<int> failedTests;
+    string input = "(^^^f2-/.";
+    Parser parser(input);
+    string expected = "RO whip whip whip flic full-in straight";
+    string result = parser.parse();
+    if (result == expected)
     {
-        std::cout << "✓ " << name << " passed\n";
+        std::cout << "✓ " << result << "\n";
     }
     else
     {
-        std::cout << "✗ " << name << " failed\n";
+        std::cout << "✗ expected " << "'" << expected << "'" << " got " << result << "'\n";
     }
 }
 
 int main()
 {
-    // Test compiler initialization
-    test("Compiler initialization", true); // Replace with actual test once compiler is implemented
-
-    // Test basic compilation
-    test("Basic compilation", true); // Replace with actual test once compilation is implemented
-
+    testParse();
     return 0;
 }

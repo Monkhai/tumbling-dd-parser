@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
+#include <map>
 
-// Gymnastics-specific token types
 class TokenType
 {
 public:
@@ -31,6 +31,15 @@ public:
         WHIP,
     };
 
+    static inline const map<string, string> SKILL_STRINGS = {
+        {"(", "RO"},
+        {"f", "flic"},
+        {"^", "whip"},
+        {"o", "tuck"},
+        {"<", "pike"},
+        {"/", "straight"},
+    };
+
     static bool isShape(const char &ch)
     {
         return ch == *TUCK || ch == *PIKE || ch == *STRAIGHT;
@@ -41,6 +50,18 @@ public:
         for (const auto &skill : TRANSITION_SKILLS)
         {
             if (ch == *skill)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static bool isTransitionSkill(string token)
+    {
+        for (const auto &skill : TRANSITION_SKILLS)
+        {
+            if (token == skill)
             {
                 return true;
             }
@@ -79,15 +100,3 @@ public:
         return true;
     }
 };
-
-// bool isSkillToken(const string &token)
-// {
-//     for (const auto &skill : TokenTypeString::SKILL_TOKEN)
-//     {
-//         if (token == skill)
-//         {
-//             return true;
-//         }
-//     }
-//     return false;
-// }

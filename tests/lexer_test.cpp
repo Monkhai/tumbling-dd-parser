@@ -51,9 +51,9 @@ void testNextToken_HAPPY()
     }
 }
 
-void testNextToken_SAD()
+void testNextToken_ILLEGAL()
 {
-    std::cout << "\n=== Starting testNextToken_SAD() ===\n";
+    std::cout << "\n=== Starting testNextToken_ILLEGAL() ===\n";
     bool allPassed = true;
     vector<int> failedTests;
     string inputs[] = {
@@ -78,6 +78,54 @@ void testNextToken_SAD()
     }
     if (allPassed)
     {
+        std::cout << "✓ testNextToken_ILLEGAL: All tests passed\n";
+    }
+    else
+    {
+        std::cout << "✗ testNextToken_ILLEGAL: Some tests failed\n";
+        for (int i = 0; i < failedTests.size(); i++)
+        {
+            std::cout << "✗ Test " << "[" << failedTests[i] << "]" << " failed\n";
+        }
+    }
+}
+
+void testNextToken_SAD()
+{
+    std::cout << "\n=== Starting testNextToken_SAD() ===\n";
+    bool allPassed = true;
+    vector<int> failedTests;
+
+    struct TestCase
+    {
+        string input;
+        vector<string> expected;
+    };
+
+    TestCase tests[] = {
+        {"(-o/",
+         {"(", "ILLEGAL"}}};
+
+    for (int i = 0; i < sizeof(tests) / sizeof(tests[0]); i++)
+    {
+        TestCase test = tests[i];
+        Lexer lexer(test.input);
+        for (int j = 0; j < test.expected.size(); j++)
+        {
+            Token token = lexer.nextToken();
+            if (token.token == test.expected[j])
+            {
+                std::cout << "✓ " << test.expected[j] << "\n";
+            }
+            else
+            {
+                std::cout << "✗ expected " << "'" << test.expected[j] << "'" << " got " << token.token << "'\n";
+                allPassed = false;
+            }
+        }
+    }
+    if (allPassed)
+    {
         std::cout << "✓ testNextToken_SAD: All tests passed\n";
     }
     else
@@ -93,6 +141,7 @@ void testNextToken_SAD()
 int main()
 {
     testNextToken_HAPPY();
+    testNextToken_ILLEGAL();
     testNextToken_SAD();
     return 0;
 }
