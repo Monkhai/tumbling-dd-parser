@@ -9,6 +9,7 @@ class Parser
 public:
     Parser(const string &input);
     string parse();
+    vector<string> getErrors();
 
 private:
     Lexer lexer;

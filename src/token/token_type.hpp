@@ -40,6 +40,32 @@ public:
         {"/", "straight"},
     };
 
+    static inline const map<string, string> TWIST_STRINGS = {
+        {"1", "half"},
+        {"2", "full"},
+        {"4", "double full"},
+        {"6", "triple full"},
+        {"8", "quad full"},
+    };
+
+    static inline const map<string, string> FLIP_STRINGS = {
+        {"1", ""},
+        {"2", "double"},
+        {"3", "triple"},
+        {"4", "quad"},
+    };
+
+    static inline const map<string, string> SHAPE_STRINGS = {
+        {"o", "tuck"},
+        {"<", "pike"},
+        {"/", "straight"},
+    };
+
+    static inline const map<int, string> DIRECTION_STRINGS = {
+        {0, "back"},
+        {1, "front"},
+    };
+
     static bool isShape(const char &ch)
     {
         return ch == *TUCK || ch == *PIKE || ch == *STRAIGHT;

@@ -44,8 +44,13 @@ Token Lexer::nextToken()
         token = Token(TokenType::WHIP);
         break;
     //----------------------------------------
+    case '.':
+        token = Token(TokenType::ILLEGAL);
+        break;
+    //----------------------------------------
     case '0':
         token = Token(TokenType::END_OF_FILE);
+        break;
     //----------------------------------------
     default:
         token = this->lexSkill();
@@ -60,6 +65,7 @@ Token Lexer::lexSkill()
     string skill;
     skill += this->ch;
     bool sawShape = false;
+    bool sawDirection = false;
     char prev = this->ch;
     while (true)
     {
@@ -97,6 +103,12 @@ Token Lexer::lexSkill()
         }
         else if (this->ch == *TokenType::DIRECTION_INDICATOR)
         {
+            if (sawDirection)
+            {
+                skill = TokenType::ILLEGAL;
+                break;
+            }
+            sawDirection = true;
             skill += this->ch;
             if (TokenType::isShape(prev))
             {

@@ -6,12 +6,12 @@
 using namespace std;
 
 // Simple test helper function
-void testNextToken_HAPPY()
+bool testNextToken_HAPPY()
 {
     std::cout << "\n=== Starting testNextToken_HAPPY() ===\n";
     bool allPassed = true;
     vector<int> failedTests;
-    string input = "(^^^f2/.";
+    string input = "(^^^f2/.-o.2-o.";
     string tests[] = {
         "(",
         "^",
@@ -19,7 +19,8 @@ void testNextToken_HAPPY()
         "^",
         "f",
         "2/.",
-    };
+        "-o.",
+        "2-o."};
 
     Lexer lexer(input);
     for (int i = 0; i < sizeof(tests) / sizeof(tests[0]); i++)
@@ -49,9 +50,10 @@ void testNextToken_HAPPY()
             std::cout << "✗ Test " << "[" << failedTests[i] << "]" << " failed\n";
         }
     }
+    return allPassed;
 }
 
-void testNextToken_ILLEGAL()
+bool testNextToken_ILLEGAL()
 {
     std::cout << "\n=== Starting testNextToken_ILLEGAL() ===\n";
     bool allPassed = true;
@@ -59,8 +61,7 @@ void testNextToken_ILLEGAL()
     string inputs[] = {
         "a",
         "א",
-        "0",
-    };
+        "."};
 
     for (int i = 0; i < sizeof(inputs) / sizeof(inputs[0]); i++)
     {
@@ -88,9 +89,10 @@ void testNextToken_ILLEGAL()
             std::cout << "✗ Test " << "[" << failedTests[i] << "]" << " failed\n";
         }
     }
+    return allPassed;
 }
 
-void testNextToken_SAD()
+bool testNextToken_SAD()
 {
     std::cout << "\n=== Starting testNextToken_SAD() ===\n";
     bool allPassed = true;
@@ -103,8 +105,9 @@ void testNextToken_SAD()
     };
 
     TestCase tests[] = {
-        {"(-o/",
-         {"(", "ILLEGAL"}}};
+        {"(-o/", {"(", "ILLEGAL"}},
+        {"(-o..", {"(", "-o.", "ILLEGAL"}},
+    };
 
     for (int i = 0; i < sizeof(tests) / sizeof(tests[0]); i++)
     {
@@ -136,12 +139,22 @@ void testNextToken_SAD()
             std::cout << "✗ Test " << "[" << failedTests[i] << "]" << " failed\n";
         }
     }
+    return allPassed;
 }
 
 int main()
 {
-    testNextToken_HAPPY();
-    testNextToken_ILLEGAL();
-    testNextToken_SAD();
+    bool allPassed = true;
+    allPassed = testNextToken_HAPPY() && allPassed;
+    allPassed = testNextToken_ILLEGAL() && allPassed;
+    allPassed = testNextToken_SAD() && allPassed;
+    if (allPassed)
+    {
+        std::cout << "✓ All tests passed\n";
+    }
+    else
+    {
+        std::cout << "✗ Some tests failed\n";
+    }
     return 0;
 }
