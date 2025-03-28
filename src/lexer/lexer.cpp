@@ -35,12 +35,17 @@ Token Lexer::nextToken()
         // todo: check if it is RO or just skill surrounding
         token = Token(TokenType::RO);
         break;
+    //----------------------------------------
     case 'f':
         token = Token(TokenType::FLIC);
         break;
+    //----------------------------------------
     case '^':
         token = Token(TokenType::WHIP);
         break;
+    //----------------------------------------
+    case '0':
+        token = Token(TokenType::END_OF_FILE);
     //----------------------------------------
     default:
         token = this->lexSkill();
