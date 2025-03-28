@@ -1,24 +1,3 @@
-# Basic C++ Project
+# Tumbling Pass parser
 
-A simple C++ project with a main executable and a test file.
-
-## Building the Project
-
-```bash
-mkdir build
-cd build
-cmake ..
-make
-```
-
-## Running the Program
-
-```bash
-./main
-```
-
-## Running Tests
-
-```bash
-./test_main
-```
+this is a simpler parser for tumbling passes. There is no real point to this other than me learning C++ and improving my parsing skills.
