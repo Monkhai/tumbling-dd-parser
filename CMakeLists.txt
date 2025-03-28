@@ -3,6 +3,9 @@ project(dd_parser)
 
 set(CMAKE_CXX_STANDARD 23)  # or 23 for the newest standard
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0")
+
 # Enable testing
 enable_testing()
 
@@ -11,7 +14,6 @@ set(LIB_SOURCES
     src/token/token.cpp
     src/lexer/lexer.cpp
     src/parser/parser.cpp
-    src/compiler/compiler.cpp
 )
 
 # Add header files
@@ -19,7 +21,6 @@ set(HEADERS
     src/token/token.hpp
     src/lexer/lexer.hpp
     src/parser/parser.hpp
-    src/compiler/compiler.hpp
 )
 
 # Create a library with all the source files except main
@@ -34,7 +35,6 @@ target_link_libraries(dd_parser PRIVATE dd_parser_lib)
 set(TEST_SOURCES
     tests/lexer_test.cpp
     tests/parser_test.cpp
-    tests/compiler_test.cpp
     tests/token_test.cpp
 )
 

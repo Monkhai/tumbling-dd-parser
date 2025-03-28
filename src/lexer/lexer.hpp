@@ -11,6 +11,7 @@ class Lexer
 public:
     // Constructor
     Lexer(const string &input);
+    Token nextToken();
 
 private:
     // members
@@ -20,7 +21,7 @@ private:
     size_t nextPosition;    // Next position in source
 
     // methods
-    Token nextToken();
     void read();
     void skipWhitespace();
+    Token lexSkill();
 };

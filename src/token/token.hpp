@@ -6,10 +6,10 @@ using namespace std;
 
 class Token
 {
-
 public:
-    // constructor
-    Token(string token);
+    // constructors
+    Token() : token("") {} // Default constructor
+    Token(string token);   // Existing constructor
 
     string token;
 };
